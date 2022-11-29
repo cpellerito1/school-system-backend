@@ -6,7 +6,7 @@
 class Course {
     std::string name;
     char department;
-    int class_id;
+    int course_id;
     u_int8_t credits;
     std::string description;
     std::vector<Course*> prerequisites;

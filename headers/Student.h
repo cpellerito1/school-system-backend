@@ -3,7 +3,7 @@
 
 #include "Registrar.h"
 
-class Student : Person {
+class Student : public Person {
     std::vector<std::string> major;
     std::vector<std::string> minor;
     float GPA;

@@ -1,8 +1,8 @@
 #include "../headers/Course.h"
 
-int Course::get_id() { return class_id; }
+int Course::get_id() { return course_id; }
 
-void Course::set_id(int id) { class_id = id; }
+void Course::set_id(int id) { course_id = id; }
 
 char Course::get_department() { return department; }
 
@@ -24,7 +24,7 @@ std::vector<Section*> Course::get_classes() { return classes; }
 
 void Course::set_classes(std::vector<Section*> new_classes) { classes = new_classes; }
 
-bool Course::operator==(const Course& rhs) const { return this->class_id == rhs.class_id; }
+bool Course::operator==(const Course& rhs) const { return this->course_id == rhs.course_id; }
 
 std::ostream& operator<<(std::ostream& out, const Course& c) {
     out << c.name << c.department;

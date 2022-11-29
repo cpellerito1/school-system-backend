@@ -3,7 +3,7 @@
 
 #include "Registrar.h"
 
-class Section : Course {
+class Section : public Course {
     int section_id;
     // Schedule
     Staff* instructor;
