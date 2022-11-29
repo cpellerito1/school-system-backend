@@ -10,11 +10,11 @@ class Course {
     u_int8_t credits;
     std::string description;
     std::vector<Course*> prerequisites;
-    std::vector<Section*> classes;
+    std::vector<Section*> sections;
 
     public:
-        int get_id(void);
-        void set_id(int);
+        int get_course_id(void) const;
+        void set_course_id(int);
         char get_department(void);
         void set_department(char);
         u_int8_t get_credits(void);
@@ -22,9 +22,13 @@ class Course {
         std::string get_desciption(void);
         void set_description(std::string);
         std::vector<Course*> get_prerequisites(void);
+        void add_prerequisite(Course*);
+        void remove_prerequisite(Course*);
         void set_prerequisities(std::vector<Course*>);
-        std::vector<Section*> get_classes(void);
-        void set_classes(std::vector<Section*>);
+        std::vector<Section*> get_sections(void);
+        void add_section(Section*);
+        void remove_section(Section*);
+        void set_sections(std::vector<Section*>);
 
         bool operator==(const Course&) const;
         friend std::ostream& operator<<(std::ostream&, const Course&);

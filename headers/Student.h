@@ -17,11 +17,15 @@ class Student : public Person {
 
     public:
         std::vector<std::string> get_major(void);
-        void set_major(std::vector<std::string>&);
-        void add_major(std::string&);
+        void set_major(std::vector<std::string>);
+        void add_major(std::string);
+        void remove_major(int);
+        void remove_major(std::string);
         std::vector<std::string> get_minor(void);
-        void set_minor(std::vector<std::string>&);
-        void add_minor(std::string&);
+        void set_minor(std::vector<std::string>);
+        void add_minor(std::string);
+        void remove_minor(int);
+        void remove_minor(std::string);
         float get_gpa(void);
         void set_gpa(float);
         int get_credits(void);

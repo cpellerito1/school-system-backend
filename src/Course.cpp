@@ -1,8 +1,8 @@
 #include "../headers/Course.h"
 
-int Course::get_id() { return course_id; }
+int Course::get_course_id() const { return course_id; }
 
-void Course::set_id(int id) { course_id = id; }
+void Course::set_course_id(int id) { course_id = id; }
 
 char Course::get_department() { return department; }
 
@@ -20,9 +20,9 @@ std::vector<Course*> Course::get_prerequisites() { return prerequisites; }
 
 void Course::set_prerequisities(std::vector<Course*> prereq) { prerequisites = prereq; }
 
-std::vector<Section*> Course::get_classes() { return classes; }
+std::vector<Section*> Course::get_sections() { return sections; }
 
-void Course::set_classes(std::vector<Section*> new_classes) { classes = new_classes; }
+void Course::set_sections(std::vector<Section*> new_sections) { sections = new_sections; }
 
 bool Course::operator==(const Course& rhs) const { return this->course_id == rhs.course_id; }
 
