@@ -13,6 +13,8 @@ class Course {
     std::vector<Section*> sections;
 
     public:
+        std::string get_name(void);
+        void set_name(std::string);
         int get_course_id(void) const;
         void set_course_id(int);
         char get_department(void);
@@ -21,6 +23,7 @@ class Course {
         void set_credits(u_int8_t);
         std::string get_desciption(void);
         void set_description(std::string);
+        void print_description(void);
         std::vector<Course*> get_prerequisites(void);
         void add_prerequisite(Course*);
         void remove_prerequisite(Course*);

@@ -45,3 +45,24 @@ int Student::get_credits() {
 }
 
 void Student::set_credits(int c) { current_credits = c; }
+
+std::unordered_map<Section*, float> Student::get_classes() { return classes; }
+
+void Student::add_class(std::pair<Section*, float> c) { classes.insert(c); }
+
+void Student::remove_class(Section* s) { classes.erase(s); }
+
+void Student::set_classes(std::unordered_map<Section*, float> c) { classes = c; }
+
+Class_S::schedule Student::get_class_schedule() { return class_schedule; }
+
+void Student::add_to_class_schedule(std::pair<Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>> c) { class_schedule.insert(c); }
+
+void Student::remove_from_class_schedule(Class_S::Day d, std::pair<Class_S::classtime, Class_S::classtime> ct) {
+    for (auto itr: class_schedule) {
+        if (itr.first == d  && itr.second == ct)
+            class_schedule.erase(itr);
+    }
+}
+
+void Student::set_class_schedule(std::multimap<Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>> cs) { class_schedule = cs; }

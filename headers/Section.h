@@ -5,13 +5,17 @@
 
 class Section : public Course {
     int section_id;
-    // Schedule
+    Class_S::schedule class_schedue;
     Staff* instructor;
     std::vector<Student*> roster;
+    int crn;
 
     public:
         int get_section_id(void);
         void set_section_id(int);
+        Class_S::schedule get_class_schedule(void);
+        void set_class_schedule(Class_S::schedule);
+        void print_schedule(void);
         Staff* get_instructor(void);
         void get_instructor(Staff*);
         std::vector<Student*> get_roster(void);
@@ -19,6 +23,8 @@ class Section : public Course {
         void remove_student(int);
         void remove_student(Student*);
         void set_roster(std::vector<Student*>);
+        int get_crn(void);
+        void set_crn(int);
 
         bool operator==(const Section&);
         friend std::ostream& operator<<(std::ostream&, const Section&);

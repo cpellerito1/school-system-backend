@@ -1,5 +1,9 @@
 #include "../headers/Course.h"
 
+std::string Course::get_name() { return name; }
+
+void Course::set_name(std::string n) { name = n; }
+
 int Course::get_course_id() const { return course_id; }
 
 void Course::set_course_id(int id) { course_id = id; }
@@ -15,6 +19,18 @@ void Course::set_credits(u_int8_t c) { credits = c; }
 std::string Course::get_desciption() { return description; }
 
 void Course::set_description(std::string desc) { description = desc; }
+
+void Course::print_description() {
+    std::ostream& out = std::cout;
+    int count = 0;
+    for (auto c: description) {
+        if (++count >= 64 && c == ' ') {
+            out << '\n';
+            count = 0;
+        } else
+            out << c;
+    }
+}
 
 std::vector<Course*> Course::get_prerequisites() { return prerequisites; }
 
