@@ -1,14 +1,14 @@
 #include "../headers/Student.h"
 
 void Student::calculate_gpa() {
-    for (auto g: classes) {
+    for (auto g: all_classes) {
         GPA += g.second;
     }
 }
 
 void Student::calculate_credits() {
-    for (auto c: classes) {
-        current_credits += c.first->get_credits();
+    for (auto c: all_classes) {
+        total_credits += c.first->get_credits();
     }
 }
 
@@ -41,26 +41,35 @@ void Student::set_gpa(float g) { GPA = g; }
 
 int Student::get_credits() {
     calculate_credits();
-    return current_credits;
+    return total_credits;
 }
 
-void Student::set_credits(int c) { current_credits = c; }
+void Student::set_credits(int c) { total_credits = c; }
 
-std::unordered_map<Section*, float> Student::get_classes() { return classes; }
+std::unordered_set<Section*> Student::get_current_classes() { return current_classes; }
 
-void Student::add_class(std::pair<Section*, float> c) { classes.insert(c); }
+void Student::add_current_class(Section* s) { current_classes.insert(s); }
 
-void Student::remove_class(Section* s) { classes.erase(s); }
+void Student::remove_current_class(Section* s) { current_classes.erase(s); }
 
-void Student::set_classes(std::unordered_map<Section*, float> c) { classes = c; }
+void Student::set_current_class(std::unordered_set<Section*> cc) { current_classes = cc; }
+
+std::unordered_map<Section*, float> Student::get_all_classes() { return all_classes; }
+
+void Student::add_class_to_all(std::pair<Section*, float> c) { all_classes.insert(c); }
+
+void Student::remove_class_from_all(Section* s) { all_classes.erase(s); }
+
+void Student::set_all_classes(std::unordered_map<Section*, float> c) { all_classes = c; }
 
 Class_S::schedule Student::get_class_schedule() { return class_schedule; }
 
 void Student::add_to_class_schedule(std::pair<Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>> c) { class_schedule.insert(c); }
 
 void Student::remove_from_class_schedule(Class_S::Day d, std::pair<Class_S::classtime, Class_S::classtime> ct) {
-    for (auto itr: class_schedule) {
-        if (itr.first == d  && itr.second == ct)
+    auto range = class_schedule.equal_range(d);
+    for (auto itr = range.first; itr != range.second; itr++) {
+        if (itr->first == d  && itr->second == ct)
             class_schedule.erase(itr);
     }
 }

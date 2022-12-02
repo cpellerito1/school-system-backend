@@ -52,17 +52,38 @@ void Registrar::set_all_courses(std::vector<Course*> ac) {
 /**
  * This method checks if a student is able to register for a class.
  * The CRN and Student have already been verified so no checks need to be done for that. All that needs to be 
- * checked is: if there is room in the students schedule for it (no conflicts with other classes), if adding this
+ * checked is: if they are already registered for this class, if there is room in the students schedule for it (no conflicts with other classes), if adding this
  * class would put them over the credits per semester limit, finally, if they have all of the proper prereqs
 */
 bool Registrar::check_registration(Student &s, int crn) {
     Section* section = crn_section.find(crn)->second;
+    // Check if already registered
+    auto current_classes = s.get_current_classes();
+    if (current_classes.find(section) != current_classes.end())
+        return false;
     // Iterate through the students current schedule to see if there any conflicts
-    for (auto metting_times: section->get_class_schedule()) {
-        for (auto schedule: s.get_schedule()) {
-
+    for (auto meeting_times: section->get_class_schedule()) {
+        for (auto schedule: s.get_class_schedule()) {
+            if (meeting_times.first == schedule.first) {                   
+                if (meeting_times.second.first > schedule.second.first && meeting_times.second.first < schedule.second.second)
+                    return false;
+                else if (meeting_times.second.second > schedule.second.first && meeting_times.second.second < schedule.second.second)
+                    return false;
+            }
         }
     }
+    // Check if this would put the student over the credit limit
+    int current_credits = std::accumulate(current_classes.begin(), current_classes.end(), 0);
+    if (section->get_credits() + current_credits > CREDIT_LIMIT)
+        return false;
+    // Check prereqs
+    for (auto pre: section->get_prerequisites()) {
+        if (s.get_all_classes().find(pre) == s.get_all_classes().end())
+            return false;
+    }   
+
+
+    return true;
 }
 
 /**

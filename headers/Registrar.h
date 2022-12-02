@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <algorithm>
+#include <numeric>
 
 #include "Person.h"
 #include "Student.h"
@@ -55,6 +56,8 @@ namespace Class_S {
 }
 
 class Registrar {
+    const int CREDIT_LIMIT = 16;
+
     std::vector<Student*> undergrad_students;
     std::vector<Student*> grad_students;
     std::vector<Staff*> staff;
