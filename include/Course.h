@@ -3,8 +3,6 @@
 
 #include "SchoolSystem.h"
 
-#include "Section.h"
-
 // Forward Declarations
 class Section;
 
@@ -15,13 +13,13 @@ class Course {
     u_int8_t credits;
     std::string description;
     std::vector<Course*> prerequisites;
-    std::vector<section_id_t> sections;
+    std::vector<Section*> sections;
 
     public:
         std::string get_name(void);
         void set_name(std::string);
-        int get_course_id(void) const;
-        void set_course_id(int);
+        course_id_t get_course_id(void) const;
+        void set_course_id(course_id_t);
         char get_department(void);
         void set_department(char);
         u_int8_t get_credits(void);
@@ -33,10 +31,10 @@ class Course {
         void add_prerequisite(Course*);
         void remove_prerequisite(Course*);
         void set_prerequisities(std::vector<Course*>);
-        std::vector<section_id_t> get_sections(void);
-        void add_section(section_id_t);
-        void remove_section(section_id_t);
-        void set_sections(std::vector<section_id_t>);
+        std::vector<Section*> get_sections(void);
+        void add_section(Section*);
+        void remove_section(Section*);
+        void set_sections(std::vector<Section*>);
 
         bool operator==(const Course&) const;
         friend std::ostream& operator<<(std::ostream&, const Course&);

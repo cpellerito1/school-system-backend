@@ -1,8 +1,17 @@
 #include "../include/Section.h"
 
-int Section::get_section_id() { return section_id; }
+course_id_t Section::get_course_id() const { return course; }
 
-void Section::set_section_id(int sid) { section_id = sid; }
+void Section::set_course_id(course_id_t cid) { course = cid; }
+
+section_id_t Section::get_section_id() { return s_id; }
+
+void Section::set_section_id(section_id_t id) {
+    // Section id should be a combination of the course id and the section id to keep them unique
+    // The first 3 digits should be the course id and the next 3 should be the section id
+    const std::string temp(std::to_string(course) + std::to_string(id));
+    id = std::atoi(temp.c_str());
+ }
 
 Class_S::schedule Section::get_class_schedule() { return class_schedue; }
 
@@ -29,4 +38,4 @@ int Section::get_crn() { return crn; }
 
 void Section::set_crn(int t_crn) { crn = t_crn; }
 
-bool Section::operator==(const Section& rhs) { return this->section_id == rhs.section_id && this->get_course_id() == rhs.get_course_id();}
+bool Section::operator==(const Section& rhs) { return this->s_id == rhs.s_id && this->course == rhs.get_course_id();}

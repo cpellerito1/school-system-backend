@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <numeric>
 
-typedef long id_t;
+typedef int course_id_t;
 typedef int section_id_t;
 
 namespace Class_S {

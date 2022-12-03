@@ -1,4 +1,3 @@
-#include "../include/SchoolSystem.h"
 #include "../include/Registrar.h"
 
 int main() {

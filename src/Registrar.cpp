@@ -33,25 +33,18 @@ void Registrar::add_course(Course* c) {
         crn_section.insert(std::pair(section->get_crn(), section));
 }
 
-void Registrar::add_section(Course* c, Section* s) { all_courses.find(c)->second.push_back(s); }
-
 void Registrar::remove_course(Course* c) {
-    all_courses.erase(c);
+    all_courses.erase(std::find(all_courses.begin(), all_courses.end(), c));
     // After removing the course from the vector, remove all the sections from the crn_section hashmap
     for (auto section: c->get_sections())
         crn_section.erase(section->get_crn());
 }
 
-void Registrar::remove_section(Course* c, Section* s) {
-    auto sections = all_courses.find(c)->second;
-    sections.erase(std::find(sections.begin(), sections.end(), s));
-}
-
-void Registrar::set_all_courses(std::unordered_map<Course*, std::vector<Section*>> ac) {
+void Registrar::set_all_courses(std::vector<Course*> ac) {
     all_courses = ac;
     // After getting all the courses, add all of the sections to the crn_section hashmap
     for (auto course: ac)
-        for (auto section : course.second)
+        for (auto section: course->get_sections())
             crn_section.insert(std::pair(section->get_crn(), section));
 }
 
@@ -66,7 +59,7 @@ bool Registrar::check_registration(Student &s, int crn) {
     Section* section = crn_section.find(crn)->second;
     // Check if already registered
     auto current_classes = s.get_current_classes();
-    if (current_classes.find(section) != current_classes.end()) {
+    if (current_classes.find(section->get_section_id()) != current_classes.end()) {
         std::cout << "Error: already registered for that class" << std::endl;
         return false;
     }
@@ -117,11 +110,11 @@ bool Registrar::check_registration(Student &s, int crn) {
 void Registrar::print_all_courses() {
     std::string day;
     for (auto c: all_courses) {
-        std::cout << c.first->get_name() << " Credits: " << c.first->get_credits() << "\nDescription: ";
+        std::cout << c->get_name() << " Credits: " << c->get_credits() << "\nDescription: ";
         // Print the description in a nice formatted way so it isn't too large
-        c.first->print_description();
+        c->print_description();
         std::cout << "Sections:\n";
-        for (auto s: c.second) {
+        for (auto s: c->get_sections()) {
             std::cout << "CRN: " << s->get_crn() << "Section ID: " << s->get_section_id() << " Instructor: " << s->get_instructor() << "Meeting Times:\n";
             // Print the sections schedule in a nice formatted way
             s->print_schedule();

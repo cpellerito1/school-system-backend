@@ -41,7 +41,7 @@ class Registrar {
         void remove_staff(Staff*);
         void set_staff(std::vector<Staff*>);
         std::vector<Course*> get_all_courses(void);
-        void add_course(Course*>);
+        void add_course(Course*);
         void remove_course(Course*);
         void set_all_courses(std::vector<Course*>);
         void print_all_courses(void);
