@@ -1,4 +1,5 @@
-#include "../headers/Registrar.h"
+#include "../include/SchoolSystem.h"
+#include "../include/Registrar.h"
 
 int main() {
 
@@ -15,7 +16,7 @@ int main() {
     }
 
     switch (option) {
-        
+
     }
 
     return 0;

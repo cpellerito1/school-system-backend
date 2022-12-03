@@ -1,4 +1,4 @@
-#include "../headers/Section.h"
+#include "../include/Section.h"
 
 int Section::get_section_id() { return section_id; }
 
@@ -13,19 +13,17 @@ void Section::print_schedule() {
         std::cout << "Day: " << s.first << " Time: " << s.second.first << "-" << s.second.second << '\n';
 }
 
-Staff* Section::get_instructor() { return instructor; }
+id_t Section::get_instructor() { return instructor; }
 
-void Section::get_instructor(Staff* inst) { instructor = inst; }
+void Section::set_instructor(id_t inst) { instructor = inst; }
 
-std::vector<Student*> Section::get_roster() { return roster; }
+std::vector<id_t> Section::get_roster() { return roster; }
 
-void Section::add_student(Student* new_student) { roster.push_back(new_student); }
+void Section::add_student(id_t new_student) { roster.push_back(new_student); }
 
-void Section::remove_student(int index) { roster.erase(roster.begin() + index-1); }
+void Section::remove_student(id_t s) { roster.erase(std::find(roster.begin(), roster.end(), s)); }
 
-void Section::remove_student(Student* s) { roster.erase(std::find(roster.begin(), roster.end(), s)); }
-
-void Section::set_roster(std::vector<Student*> rstr) { roster = rstr; }
+void Section::set_roster(std::vector<id_t> rstr) { roster = rstr; }
 
 int Section::get_crn() { return crn; }
 

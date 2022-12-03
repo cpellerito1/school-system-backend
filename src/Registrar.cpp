@@ -1,4 +1,4 @@
-#include "../headers/Registrar.h"
+#include "../include/Registrar.h"
 
 std::vector<Student*> Registrar::get_undergrad_students() { return undergrad_students; }
 
@@ -33,18 +33,25 @@ void Registrar::add_course(Course* c) {
         crn_section.insert(std::pair(section->get_crn(), section));
 }
 
+void Registrar::add_section(Course* c, Section* s) { all_courses.find(c)->second.push_back(s); }
+
 void Registrar::remove_course(Course* c) {
-    all_courses.erase(std::find(all_courses.begin(), all_courses.end(), c));
+    all_courses.erase(c);
     // After removing the course from the vector, remove all the sections from the crn_section hashmap
     for (auto section: c->get_sections())
         crn_section.erase(section->get_crn());
 }
 
-void Registrar::set_all_courses(std::vector<Course*> ac) {
+void Registrar::remove_section(Course* c, Section* s) {
+    auto sections = all_courses.find(c)->second;
+    sections.erase(std::find(sections.begin(), sections.end(), s));
+}
+
+void Registrar::set_all_courses(std::unordered_map<Course*, std::vector<Section*>> ac) {
     all_courses = ac;
     // After getting all the courses, add all of the sections to the crn_section hashmap
     for (auto course: ac)
-        for (auto section : course->get_sections())
+        for (auto section : course.second)
             crn_section.insert(std::pair(section->get_crn(), section));
 }
 
@@ -59,28 +66,46 @@ bool Registrar::check_registration(Student &s, int crn) {
     Section* section = crn_section.find(crn)->second;
     // Check if already registered
     auto current_classes = s.get_current_classes();
-    if (current_classes.find(section) != current_classes.end())
+    if (current_classes.find(section) != current_classes.end()) {
+        std::cout << "Error: already registered for that class" << std::endl;
         return false;
+    }
     // Iterate through the students current schedule to see if there any conflicts
     for (auto meeting_times: section->get_class_schedule()) {
         for (auto schedule: s.get_class_schedule()) {
             if (meeting_times.first == schedule.first) {                   
-                if (meeting_times.second.first > schedule.second.first && meeting_times.second.first < schedule.second.second)
+                if (meeting_times.second.first > schedule.second.first && meeting_times.second.first < schedule.second.second){
+                    std::cout << "Error: Conflict with class already registered" << std::endl;
                     return false;
-                else if (meeting_times.second.second > schedule.second.first && meeting_times.second.second < schedule.second.second)
+                } else if (meeting_times.second.second > schedule.second.first && meeting_times.second.second < schedule.second.second) {
+                    std::cout << "Error: Conflict with class already registered" << std::endl;
                     return false;
+                }
             }
         }
     }
     // Check if this would put the student over the credit limit
     int current_credits = std::accumulate(current_classes.begin(), current_classes.end(), 0);
-    if (section->get_credits() + current_credits > CREDIT_LIMIT)
+    if (section->get_credits() + current_credits > CREDIT_LIMIT) {
+        std::cout << "Errpr: Registering for this class woud put you over the " << CREDIT_LIMIT << " credit limit" << std::endl;
         return false;
+    }
     // Check prereqs
-    for (auto pre: section->get_prerequisites()) {
-        if (s.get_all_classes().find(pre) == s.get_all_classes().end())
-            return false;
-    }   
+    auto &&all_classes = s.get_all_classes();
+    auto ll = [all_classes](Course* c) { return all_classes.find(c) == all_classes.end(); };
+    std::vector<Course*> out;
+    std::copy_if(section->get_prerequisites().begin(), section->get_prerequisites().end(), out.begin(), ll);
+    if (!out.empty()) {
+        std::cout << "Error: Not all prerequisities met, still missing these courses: \n";
+        for (auto pre: out)
+            std::cout << *pre  << " ";
+        return false;
+    }
+    // for (auto pre: section->get_prerequisites()) {
+    //     if (s.get_all_classes().find(pre) == s.get_all_classes().end()) {
+    //         std::cout << "Error: Not all prerequisities met (";
+    //         return false;
+    // }   
 
 
     return true;
@@ -92,16 +117,15 @@ bool Registrar::check_registration(Student &s, int crn) {
 void Registrar::print_all_courses() {
     std::string day;
     for (auto c: all_courses) {
-        std::cout << c->get_name() << " Credits: " << c->get_credits() << "\nDescription: ";
+        std::cout << c.first->get_name() << " Credits: " << c.first->get_credits() << "\nDescription: ";
         // Print the description in a nice formatted way so it isn't too large
-        c->print_description();
+        c.first->print_description();
         std::cout << "Sections:\n";
-        for (auto s: c->get_sections()) {
+        for (auto s: c.second) {
             std::cout << "CRN: " << s->get_crn() << "Section ID: " << s->get_section_id() << " Instructor: " << s->get_instructor() << "Meeting Times:\n";
             // Print the sections schedule in a nice formatted way
             s->print_schedule();
         }
-
     }
 }
 

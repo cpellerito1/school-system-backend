@@ -1,4 +1,4 @@
-#include "../headers/Course.h"
+#include "../include/Course.h"
 
 std::string Course::get_name() { return name; }
 
@@ -36,9 +36,9 @@ std::vector<Course*> Course::get_prerequisites() { return prerequisites; }
 
 void Course::set_prerequisities(std::vector<Course*> prereq) { prerequisites = prereq; }
 
-std::vector<Section*> Course::get_sections() { return sections; }
+std::vector<section_id_t> Course::get_sections() { return sections; }
 
-void Course::set_sections(std::vector<Section*> new_sections) { sections = new_sections; }
+void Course::set_sections(std::vector<section_id_t> new_sections) { sections = new_sections; }
 
 bool Course::operator==(const Course& rhs) const { return this->course_id == rhs.course_id; }
 

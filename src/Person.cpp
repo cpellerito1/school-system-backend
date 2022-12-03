@@ -1,4 +1,4 @@
-#include "Person.h"
+#include "../include/Person.h"
 
 std::string Person::get_first_name() { return first_name; }
 
@@ -20,15 +20,15 @@ void Person::set_name(std::string fn, std::string ln, char initial) {
     middle_i = initial;
 }
 
-long Person::get_id() { return id; }
+id_t Person::get_cwid() { return cwid; }
 
-void Person::set_id(long n_id) { id = n_id; }
+void Person::set_cwid(id_t n_id) { cwid = n_id; }
 
 std::string Person::get_address() { return address; }
 
 void Person::set_address(std::string new_address) { address = new_address; }
 
-bool Person::operator==(const Person &rhs) const { return this->id == rhs.id; }
+bool Person::operator==(const Person &rhs) const { return this->cwid == rhs.cwid; }
 
 std::ostream& operator<<(std::ostream &out, const Person &p) {
     out << p.first_name << " " << std::string(1, p.middle_i) << " " << p.last_name;

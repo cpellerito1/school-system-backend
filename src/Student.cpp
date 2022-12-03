@@ -1,8 +1,8 @@
-#include "../headers/Student.h"
+#include "../include/Student.h"
 
 void Student::calculate_gpa() {
     for (auto g: all_classes) {
-        GPA += g.second;
+        GPA += g.second.second;
     }
 }
 
@@ -46,21 +46,21 @@ int Student::get_credits() {
 
 void Student::set_credits(int c) { total_credits = c; }
 
-std::unordered_set<Section*> Student::get_current_classes() { return current_classes; }
+std::unordered_set<section_id_t> Student::get_current_classes() { return current_classes; }
 
-void Student::add_current_class(Section* s) { current_classes.insert(s); }
+void Student::add_current_class(section_id_t s) { current_classes.insert(s); }
 
-void Student::remove_current_class(Section* s) { current_classes.erase(s); }
+void Student::remove_current_class(section_id_t s) { current_classes.erase(s); }
 
-void Student::set_current_class(std::unordered_set<Section*> cc) { current_classes = cc; }
+void Student::set_current_class(std::unordered_set<section_id_t> cc) { current_classes = cc; }
 
-std::unordered_map<Section*, float> Student::get_all_classes() { return all_classes; }
+std::unordered_map<Course*, std::pair<section_id_t, float>> Student::get_all_classes() { return all_classes; }
 
-void Student::add_class_to_all(std::pair<Section*, float> c) { all_classes.insert(c); }
+void Student::add_class_to_all(std::pair<Course*, std::pair<section_id_t, float>> c) { all_classes.insert(c); }
 
-void Student::remove_class_from_all(Section* s) { all_classes.erase(s); }
+void Student::remove_class_from_all(Course* s) { all_classes.erase(s); }
 
-void Student::set_all_classes(std::unordered_map<Section*, float> c) { all_classes = c; }
+void Student::set_all_classes(std::unordered_map<Course*, std::pair<section_id_t, float>> c) { all_classes = c; }
 
 Class_S::schedule Student::get_class_schedule() { return class_schedule; }
 
@@ -75,3 +75,11 @@ void Student::remove_from_class_schedule(Class_S::Day d, std::pair<Class_S::clas
 }
 
 void Student::set_class_schedule(std::multimap<Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>> cs) { class_schedule = cs; }
+
+std::vector<id_t> Student::get_advisor() { return advisor; }
+
+void Student::add_advisor(id_t a) { advisor.push_back(a); }
+
+void Student::remove_advisor(id_t a) { advisor.erase(std::find(advisor.begin(), advisor.end(), a)); }
+
+void Student::set_advisor(std::vector<id_t> a) { advisor = a; }

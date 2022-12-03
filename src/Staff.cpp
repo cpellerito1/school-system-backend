@@ -1,23 +1,23 @@
-#include "../headers/Staff.h"
+#include "../include/Staff.h"
 
 std::string Staff::get_title() { return title; }
 
 void Staff::set_title(std::string t) { title = t; }
 
-std::vector<Section*> Staff::get_classes() { return classes; }
+std::vector<section_id_t> Staff::get_classes() { return classes; }
 
-void Staff::add_class(Section* c) { classes.push_back(c); }
+void Staff::add_class(section_id_t c) { classes.push_back(c); }
 
-void Staff::set_classes(std::vector<Section*>& c) { classes = c; }
+void Staff::set_classes(std::vector<section_id_t> c) { classes = c; }
 
-std::vector<Section*> Staff::get_class_history() { return class_history; }
+std::vector<section_id_t> Staff::get_class_history() { return class_history; }
 
-void Staff::add_class_to_history(Section* c) { class_history.push_back(c); }
+void Staff::add_class_to_history(section_id_t c) { class_history.push_back(c); }
 
-void Staff::set_class_history(std::vector<Section*>& ch) { class_history = ch; }
+void Staff::set_class_history(std::vector<section_id_t> ch) { class_history = ch; }
 
-std::vector<Student*> Staff::get_advisee() { return advisee; }
+std::vector<id_t> Staff::get_advisee() { return advisee; }
 
-void Staff::add_advisee(Student* s) { advisee.push_back(s); }
+void Staff::add_advisee(id_t s) { advisee.push_back(s); }
 
-void Staff::set_advisee(std::vector<Student*>& a) { advisee = a; }
+void Staff::set_advisee(std::vector<id_t> a) { advisee = a; }
