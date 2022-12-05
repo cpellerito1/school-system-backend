@@ -55,22 +55,22 @@ void Registrar::set_all_courses(std::vector<Course*> ac) {
  * checked is: if they are already registered for this class, if there is room in the students schedule for it (no conflicts with other classes), if adding this
  * class would put them over the credits per semester limit, finally, if they have all of the proper prereqs
 */
-bool Registrar::check_registration(Student &s, int crn) {
+bool Registrar::check_registration(Student &student, int crn) {
     Section* section = crn_section.find(crn)->second;
     // Check if already registered
-    auto current_classes = s.get_current_classes();
+    auto current_classes = student.get_current_classes();
     if (current_classes.find(section->get_section_id()) != current_classes.end()) {
         std::cout << "Error: already registered for that class" << std::endl;
         return false;
     }
     // Iterate through the students current schedule to see if there any conflicts
     for (auto meeting_times: section->get_class_schedule()) {
-        for (auto schedule: s.get_class_schedule()) {
-            if (meeting_times.first == schedule.first) {                   
-                if (meeting_times.second.first > schedule.second.first && meeting_times.second.first < schedule.second.second){
+        for (auto schedule: student.get_class_schedule()) {
+            if (meeting_times->get_day() == schedule->get_day()) {                   
+                if (meeting_times->get_start_time() > schedule->get_start_time() && meeting_times->get_start_time() < schedule->get_end_time()){
                     std::cout << "Error: Conflict with class already registered" << std::endl;
                     return false;
-                } else if (meeting_times.second.second > schedule.second.first && meeting_times.second.second < schedule.second.second) {
+                } else if (meeting_times->get_end_time() > schedule->get_start_time() && meeting_times->get_end_time() < schedule->get_end_time()) {
                     std::cout << "Error: Conflict with class already registered" << std::endl;
                     return false;
                 }
@@ -84,7 +84,7 @@ bool Registrar::check_registration(Student &s, int crn) {
         return false;
     }
     // Check prereqs
-    auto &&all_classes = s.get_all_classes();
+    auto &&all_classes = student.get_all_classes();
     auto ll = [all_classes](Course* c) { return all_classes.find(c) == all_classes.end(); };
     std::vector<Course*> out;
     std::copy_if(section->get_prerequisites().begin(), section->get_prerequisites().end(), out.begin(), ll);

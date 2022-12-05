@@ -62,19 +62,13 @@ void Student::remove_class_from_all(Course* s) { all_classes.erase(s); }
 
 void Student::set_all_classes(std::unordered_map<Course*, std::pair<section_id_t, float>> c) { all_classes = c; }
 
-Class_S::schedule Student::get_class_schedule() { return class_schedule; }
+std::vector<Schedule*> Student::get_class_schedule() { return class_schedule; }
 
-void Student::add_to_class_schedule(std::pair<Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>> c) { class_schedule.insert(c); }
+void Student::add_to_class_schedule(Schedule* c) { class_schedule.push_back(c); }
 
-void Student::remove_from_class_schedule(Class_S::Day d, std::pair<Class_S::classtime, Class_S::classtime> ct) {
-    auto range = class_schedule.equal_range(d);
-    for (auto itr = range.first; itr != range.second; itr++) {
-        if (itr->first == d  && itr->second == ct)
-            class_schedule.erase(itr);
-    }
-}
+void Student::remove_from_class_schedule(Schedule* c) {class_schedule.erase(std::find(class_schedule.begin(), class_schedule.end(), c)); }
 
-void Student::set_class_schedule(std::multimap<Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>> cs) { class_schedule = cs; }
+void Student::set_class_schedule(std::vector<Schedule*> cs) { class_schedule = cs; }
 
 std::vector<id_t> Student::get_advisor() { return advisor; }
 

@@ -13,13 +13,15 @@ void Section::set_section_id(section_id_t id) {
     id = std::atoi(temp.c_str());
  }
 
-Class_S::schedule Section::get_class_schedule() { return class_schedue; }
+std::vector<Schedule*> Section::get_class_schedule() { return class_schedule; }
 
-void Section::set_class_schedule(Class_S::schedule cs) { class_schedue = cs; }
+void Section::set_class_schedule(std::vector<Schedule*> cs) { class_schedule = cs; }
 
 void Section::print_schedule() {
-    for (auto s: class_schedue)
-        std::cout << "Day: " << s.first << " Time: " << s.second.first << "-" << s.second.second << '\n';
+    for (auto meeting_time: class_schedule) {
+        std::cout << "Day: " << meeting_time->get_day() << " Time: " << meeting_time->get_start_time() <<  
+            " - " << meeting_time->get_end_time() << '\n';
+    }
 }
 
 id_t Section::get_instructor() { return instructor; }

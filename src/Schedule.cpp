@@ -22,17 +22,21 @@ std::ostream& operator<<(std::ostream& out, const Day& d) {
         return out;
 }
 
-Day Schedule::get_day() { return day_of_week; }
+Day Schedule::get_day() const { return day_of_week; }
 
 void Schedule::set_day(Day d) { day_of_week = d; }
 
-classtime Schedule::get_start_time() { return start_time; }
+classtime Schedule::get_start_time() const { return start_time; }
 
 void Schedule::set_start_time(classtime t) { start_time = t; }
 
-classtime Schedule::get_end_time() { return end_time; }
+classtime Schedule::get_end_time() const { return end_time; }
 
 void Schedule::set_end_time(classtime t) { end_time = t; }
+
+bool Schedule::operator==(const Schedule& rhs) {
+    return this->day_of_week == rhs.get_day() && this->start_time == rhs.get_start_time() && this->end_time == rhs.get_end_time();
+}
 
 std::ostream& operator<<(std::ostream& out, const classtime& class_time) {
     std::string ending = "AM";

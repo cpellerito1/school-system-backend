@@ -14,13 +14,14 @@ class Schedule {
     classtime end_time;
 
     public:
-        Day get_day(void);
+        Day get_day(void) const;
         void set_day(Day);
-        classtime get_start_time(void);
+        classtime get_start_time(void) const;
         void set_start_time(classtime);
-        classtime get_end_time(void);
+        classtime get_end_time(void) const;
         void set_end_time(classtime);
 
+        bool operator==(const Schedule&);
         friend std::ostream& operator<<(std::ostream&, const classtime&);
 };
 

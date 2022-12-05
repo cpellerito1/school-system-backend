@@ -8,9 +8,7 @@
 #include "Section.h"
 
 // Forward Declarations
-class Staff;
 class Course;
-class Section;
 
 class Student : public Person {
     std::vector<std::string> major;
@@ -19,7 +17,7 @@ class Student : public Person {
     int total_credits;
     std::unordered_set<section_id_t> current_classes;
     std::unordered_map<Course*, std::pair<section_id_t, float>> all_classes;
-    Class_S::schedule class_schedule;
+    std::vector<Schedule*> class_schedule;
     std::vector<id_t> advisor;
 
     void calculate_gpa(void);
@@ -49,10 +47,10 @@ class Student : public Person {
         void add_class_to_all(std::pair<Course*, std::pair<section_id_t, float>>);
         void remove_class_from_all(Course*);
         void set_all_classes(std::unordered_map<Course*, std::pair<section_id_t, float>>);
-        Class_S::schedule get_class_schedule(void);
-        void add_to_class_schedule(std::pair<Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>>);
-        void remove_from_class_schedule(Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>);
-        void set_class_schedule(std::multimap<Class_S::Day, std::pair<Class_S::classtime, Class_S::classtime>>);
+        std::vector<Schedule*> get_class_schedule(void);
+        void add_to_class_schedule(Schedule*);
+        void remove_from_class_schedule(Schedule*);
+        void set_class_schedule(std::vector<Schedule*>);
         std::vector<id_t> get_advisor(void);
         void add_advisor(id_t);
         void remove_advisor(id_t);
