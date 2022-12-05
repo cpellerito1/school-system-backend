@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef SCHOOL_SYSTEM_H
 #define SCHOOL_SYSTEM_H
 
