@@ -14,6 +14,8 @@ class Schedule {
     classtime end_time;
 
     public:
+        Schedule(Day, classtime, classtime);
+        
         Day get_day(void) const;
         void set_day(Day);
         classtime get_start_time(void) const;

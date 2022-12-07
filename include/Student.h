@@ -14,7 +14,7 @@ class Student : public Person {
     std::vector<std::string> major;
     std::vector<std::string> minor;
     float GPA;
-    int total_credits;
+    uint8_t total_credits;
     std::unordered_set<section_id_t> current_classes;
     std::unordered_map<Course*, std::pair<section_id_t, float>> all_classes;
     std::vector<Schedule*> class_schedule;
@@ -25,6 +25,8 @@ class Student : public Person {
 
 
     public:
+        Student(std::string, id_t, std::string, std::vector<std::string>, std::vector<std::string>, std::vector<id_t>);
+
         std::vector<std::string> get_major(void);
         void set_major(std::vector<std::string>);
         void add_major(std::string);
@@ -37,8 +39,8 @@ class Student : public Person {
         void remove_minor(std::string);
         float get_gpa(void);
         void set_gpa(float);
-        int get_credits(void);
-        void set_credits(int);
+        uint8_t get_credits(void);
+        void set_credits(uint8_t);
         std::unordered_set<section_id_t> get_current_classes(void);
         void add_current_class(section_id_t);
         void remove_current_class(section_id_t);

@@ -28,6 +28,9 @@ class Registrar {
     bool check_registration(Student&, int);
 
     public:
+        Registrar();
+        Registrar(std::vector<Student*>, std::vector<Student*>, std::vector<Staff*>, std::vector<Course*>, std::unordered_map<int, Section*>);
+
         std::vector<Student*> get_undergrad_students(void);
         void add_undergrad_student(Student*);
         void remove_undergrad_student(Student*);

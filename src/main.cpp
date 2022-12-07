@@ -14,8 +14,11 @@ int main() {
         std::cin >> option;
     }
 
+    // Instantiate the registrar class
+    Registrar r;
     switch (option) {
-
+        case 4:
+            
     }
 
     return 0;

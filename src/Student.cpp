@@ -1,5 +1,22 @@
 #include "../include/Student.h"
 
+Student::Student(std::string name, id_t student_id, std::string addr, std::vector<std::string> student_majors, std::vector<std::string> student_minors,
+    std::vector<id_t> advisors) {
+        // Body
+        const char delim = ' ';
+        const size_t first = name.find_first_of(delim);
+        this->first_name = name.substr(0, first);
+        // first is the index of the first space, so the middle initial should be first+1
+        this->middle_i = name[first+1];
+        this->last_name = name.substr(name.find_last_of(delim));
+        this->cwid = student_id;
+        this->address = addr;
+        // Set data memebrs in body to make code cleaner and more readable
+        this->major = student_majors;
+        this->minor = student_minors;
+        this->advisor = advisors;
+    }
+
 void Student::calculate_gpa() {
     for (auto g: all_classes) {
         GPA += g.second.second;
@@ -39,15 +56,14 @@ float Student::get_gpa() {
 
 void Student::set_gpa(float g) { GPA = g; }
 
-int Student::get_credits() {
+uint8_t Student::get_credits() {
     calculate_credits();
     return total_credits;
 }
 
-void Student::set_credits(int c) { total_credits = c; }
+void Student::set_credits(uint8_t c) { total_credits = c; }
 
 std::unordered_set<section_id_t> Student::get_current_classes() { return current_classes; }
-
 void Student::add_current_class(section_id_t s) { current_classes.insert(s); }
 
 void Student::remove_current_class(section_id_t s) { current_classes.erase(s); }

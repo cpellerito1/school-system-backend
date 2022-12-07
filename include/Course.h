@@ -7,15 +7,19 @@
 class Section;
 
 class Course {
-    std::string name;
-    char department;
-    int course_id;
-    u_int8_t credits;
-    std::string description;
-    std::vector<Course*> prerequisites;
-    std::vector<Section*> sections;
+    protected:
+        std::string name;
+        char department;
+        int course_id;
+        u_int8_t credits;
+        std::string description;
+        std::vector<Course*> prerequisites;
+        std::vector<Section*> sections;
 
     public:
+        Course(std::string, char, int, u_int8_t, std::string);
+        Course(std::string, char, int, u_int8_t, std::string, std::vector<Course*>, std::vector<Section*>);
+
         std::string get_name(void);
         void set_name(std::string);
         course_id_t get_course_id(void) const;

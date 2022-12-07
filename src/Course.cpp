@@ -1,5 +1,11 @@
 #include "../include/Course.h"
 
+Course::Course(std::string class_name, char dept, int cid, u_int8_t c, std::string descr): 
+    name(class_name), department(dept), course_id(cid), credits(c), description(descr) {}
+
+Course::Course(std::string class_name, char dept, int cid, u_int8_t c, std::string descr, std::vector<Course*> prereqs, std::vector<Section*> secs): 
+    name(class_name), department(dept), credits(c), course_id(cid), description(descr), prerequisites(prereqs), sections(secs) {}
+
 std::string Course::get_name() { return name; }
 
 void Course::set_name(std::string n) { name = n; }

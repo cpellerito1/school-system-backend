@@ -7,8 +7,8 @@
 #include "Staff.h"
 #include "Schedule.h"
 
-class Section : public Course {
-    course_id_t course;
+class Section {
+    Course* course;
     section_id_t s_id;
     std::vector<Schedule*> class_schedule;
     id_t instructor;
@@ -16,8 +16,11 @@ class Section : public Course {
     int crn;
 
     public:
-        course_id_t get_course_id(void) const;
-        void set_course_id(course_id_t);
+        Section(Course*, section_id_t, std::vector<Schedule*>, id_t, int);
+        Section(Course*, section_id_t, std::vector<Schedule*>, id_t, std::vector<id_t>, int);
+
+        Course* get_course(void);
+        void set_course(Course*);
         section_id_t get_section_id(void);
         void set_section_id(section_id_t);
         std::vector<Schedule*> get_class_schedule(void);

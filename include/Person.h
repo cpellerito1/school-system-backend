@@ -4,11 +4,12 @@
 #include "SchoolSystem.h"
 
 class Person {
-    std::string first_name;
-    std::string last_name;
-    char middle_i;
-    id_t cwid;
-    std::string address;
+    protected:
+        std::string first_name;
+        std::string last_name;
+        char middle_i;
+        id_t cwid;
+        std::string address;
 
     public:
         std::string get_first_name(void);

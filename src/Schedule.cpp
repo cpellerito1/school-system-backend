@@ -22,6 +22,8 @@ std::ostream& operator<<(std::ostream& out, const Day& d) {
         return out;
 }
 
+Schedule::Schedule(Day d, classtime start, classtime end): day_of_week(d), start_time(start), end_time(end) {}
+
 Day Schedule::get_day() const { return day_of_week; }
 
 void Schedule::set_day(Day d) { day_of_week = d; }

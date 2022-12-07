@@ -1,0 +1,7 @@
+#include "../include/SchoolSystem.h"
+#include "../include/Schedule.h"
+#include "../include/Registrar.h"
+#include "../include/Course.h"
+#include "../include/Section.h"
+#include "../include/Staff.h"
+#include "../include/Student.h"

@@ -1,5 +1,10 @@
 #include "../include/Registrar.h"
 
+Registrar::Registrar() {}
+
+Registrar::Registrar(std::vector<Student*> undergrad, std::vector<Student*> grad, std::vector<Staff*> s, std::vector<Course*> courses, 
+    std::unordered_map<int, Section*> crns): undergrad_students(undergrad), grad_students(grad), staff(s), all_courses(courses), crn_section(crns) {}
+
 std::vector<Student*> Registrar::get_undergrad_students() { return undergrad_students; }
 
 void Registrar::add_undergrad_student(Student* s) { undergrad_students.push_back(s); }
@@ -79,7 +84,7 @@ bool Registrar::check_registration(Student &student, int crn) {
     }
     // Check if this would put the student over the credit limit
     int current_credits = std::accumulate(current_classes.begin(), current_classes.end(), 0);
-    if (section->get_credits() + current_credits > CREDIT_LIMIT) {
+    if (section->get_course()->get_credits() + current_credits > CREDIT_LIMIT) {
         std::cout << "Errpr: Registering for this class woud put you over the " << CREDIT_LIMIT << " credit limit" << std::endl;
         return false;
     }
@@ -87,7 +92,7 @@ bool Registrar::check_registration(Student &student, int crn) {
     auto &&all_classes = student.get_all_classes();
     auto ll = [all_classes](Course* c) { return all_classes.find(c) == all_classes.end(); };
     std::vector<Course*> out;
-    std::copy_if(section->get_prerequisites().begin(), section->get_prerequisites().end(), out.begin(), ll);
+    std::copy_if(section->get_course()->get_prerequisites().begin(), section->get_course()->get_prerequisites().end(), out.begin(), ll);
     if (!out.empty()) {
         std::cout << "Error: Not all prerequisities met, still missing these courses: \n";
         for (auto pre: out)

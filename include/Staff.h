@@ -16,6 +16,9 @@ class Staff : public Person {
     std::vector<id_t> advisee;
 
     public:
+        Staff(std::string, id_t, std::string, std::string);
+        Staff(std::string, id_t, std::string, std::string, std::vector<section_id_t>, std::vector<section_id_t>, std::vector<id_t>);
+        
         std::string get_title(void);
         void set_title(std::string t);
         std::vector<section_id_t> get_classes(void);
