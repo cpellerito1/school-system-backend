@@ -12,11 +12,14 @@
 #include <algorithm>
 #include <numeric>
 
+#include "Registrar.h"
+
 typedef int course_id_t;
 typedef int section_id_t;
 
 class SchoolSystem {
-    
+    public:
+        void login(void);
 };
 
 #endif // School_System_H

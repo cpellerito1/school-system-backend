@@ -6,10 +6,13 @@
 // Forward Declarations
 class Section;
 
+enum Department { ENG = 0, CMPT = 1, BUS = 2, COMM = 3, SCI = 4 };
+std::ostream& operator<<(std::ostream&, const Department&);
+
 class Course {
     protected:
         std::string name;
-        char department;
+        Department department;
         int course_id;
         u_int8_t credits;
         std::string description;
@@ -17,15 +20,15 @@ class Course {
         std::vector<Section*> sections;
 
     public:
-        Course(std::string, char, int, u_int8_t, std::string);
-        Course(std::string, char, int, u_int8_t, std::string, std::vector<Course*>, std::vector<Section*>);
+        Course(std::string, Department, int, u_int8_t, std::string);
+        Course(std::string, Department, int, u_int8_t, std::string, std::vector<Course*>, std::vector<Section*>);
 
         std::string get_name(void);
         void set_name(std::string);
         course_id_t get_course_id(void) const;
         void set_course_id(course_id_t);
-        char get_department(void);
-        void set_department(char);
+        Department get_department(void);
+        void set_department(Department);
         u_int8_t get_credits(void);
         void set_credits(u_int8_t);
         std::string get_desciption(void);

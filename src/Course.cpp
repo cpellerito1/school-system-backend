@@ -1,9 +1,9 @@
 #include "../include/Course.h"
 
-Course::Course(std::string class_name, char dept, int cid, u_int8_t c, std::string descr): 
+Course::Course(std::string class_name, Department dept, int cid, u_int8_t c, std::string descr): 
     name(class_name), department(dept), course_id(cid), credits(c), description(descr) {}
 
-Course::Course(std::string class_name, char dept, int cid, u_int8_t c, std::string descr, std::vector<Course*> prereqs, std::vector<Section*> secs): 
+Course::Course(std::string class_name, Department dept, int cid, u_int8_t c, std::string descr, std::vector<Course*> prereqs, std::vector<Section*> secs): 
     name(class_name), department(dept), credits(c), course_id(cid), description(descr), prerequisites(prereqs), sections(secs) {}
 
 std::string Course::get_name() { return name; }
@@ -14,9 +14,9 @@ course_id_t Course::get_course_id() const { return course_id; }
 
 void Course::set_course_id(course_id_t id) { course_id = id; }
 
-char Course::get_department() { return department; }
+Department Course::get_department() { return department; }
 
-void Course::set_department(char dept) { department = dept; }
+void Course::set_department(Department dept) { department = dept; }
 
 u_int8_t Course::get_credits() { return credits; }
 
@@ -54,5 +54,26 @@ bool Course::operator==(const Course& rhs) const { return this->course_id == rhs
 
 std::ostream& operator<<(std::ostream& out, const Course& c) {
     out << c.name << c.department;
+    return out;
+}
+
+std::ostream& operator<<(std::ostream& out, const Department& rhs) {
+    switch (rhs) {
+        case 0:
+            out << "ENG";
+            break;
+        case 1:
+            out << "CMPT";
+            break;
+        case 2:
+            out << "BUS";
+            break;
+        case 3:
+            out << "COMM";
+            break;
+        case 4:
+            out << "SCI";
+            break;
+    }
     return out;
 }

@@ -23,13 +23,13 @@ class Registrar {
     // Classes
     std::vector<Course*> all_courses;
     std::unordered_map<int, Section*> crn_section;
-    // Student <-> Staff
 
     bool check_registration(Student&, int);
 
     public:
         Registrar();
         Registrar(std::vector<Student*>, std::vector<Student*>, std::vector<Staff*>, std::vector<Course*>, std::unordered_map<int, Section*>);
+        void initialize(void);
 
         std::vector<Student*> get_undergrad_students(void);
         void add_undergrad_student(Student*);
@@ -53,7 +53,7 @@ class Registrar {
         void remove_crn_section(int);
         void set_crn_section(std::unordered_map<int, Section*>);
         void start_registration(Student&);
-
+        bool find_student(Student&);
 
 };
 
