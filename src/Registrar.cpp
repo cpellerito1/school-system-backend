@@ -151,3 +151,13 @@ void Registrar::start_registration(Student& s) {
 
     
 }
+
+
+std::vector<Student*>::const_iterator Registrar::find_student(Student &student) {
+    auto search_undergrad = std::find(undergrad_students.begin(), undergrad_students.end(), student);
+    if (search_undergrad != undergrad_students.end())
+        return search_undergrad;
+    return std::find(grad_students.begin(), grad_students.end(), student);
+        
+    
+}

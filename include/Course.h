@@ -3,11 +3,16 @@
 
 #include "SchoolSystem.h"
 
+//using namespace school_types;
+
+
 // Forward Declarations
 class Section;
 
 enum Department { ENG = 0, CMPT = 1, BUS = 2, COMM = 3, SCI = 4 };
 std::ostream& operator<<(std::ostream&, const Department&);
+
+typedef int course_id_t;
 
 class Course {
     protected:

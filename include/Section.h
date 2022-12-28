@@ -7,6 +7,10 @@
 #include "Staff.h"
 #include "Schedule.h"
 
+//using namespace school_types;
+
+typedef int section_id_t;
+
 class Section {
     Course* course;
     section_id_t s_id;
@@ -21,7 +25,7 @@ class Section {
 
         Course* get_course(void);
         void set_course(Course*);
-        section_id_t get_section_id(void);
+        section_id_t get_section_id(void) const;
         void set_section_id(section_id_t);
         std::vector<Schedule*> get_class_schedule(void);
         void set_class_schedule(std::vector<Schedule*>);

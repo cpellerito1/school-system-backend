@@ -1,16 +1,20 @@
 #include "../include/Section.h"
 
-Section::Section(Course* c, section_id_t sid, std::vector<Schedule*> sched, id_t instructor_id, int crn_number): course(c), s_id(sid),
-    class_schedule(sched), instructor(instructor_id), crn(crn_number) {}
+Section::Section(Course* c, section_id_t sid, std::vector<Schedule*> sched, id_t instructor_id, int crn_number): course(c), class_schedule(sched), 
+    instructor(instructor_id), crn(crn_number) {
+        set_section_id(sid);
+    }
 
 Section::Section(Course* c, section_id_t sid, std::vector<Schedule*> sched, id_t instructor_id, std::vector<id_t> students, int crn_number):
-    course(c), s_id(sid), class_schedule(sched), instructor(instructor_id), roster(students), crn(crn_number) {}
+    course(c), class_schedule(sched), instructor(instructor_id), roster(students), crn(crn_number) {
+        set_section_id(sid);
+    }
 
 Course* Section::get_course() { return course; }
 
 void Section::set_course(Course* c) { course = c; }
 
-section_id_t Section::get_section_id() { return s_id; }
+section_id_t Section::get_section_id() const { return s_id; }
 
 void Section::set_section_id(section_id_t id) {
     // Section id should be a combination of the course id and the section id to keep them unique
@@ -47,3 +51,8 @@ int Section::get_crn() { return crn; }
 void Section::set_crn(int t_crn) { crn = t_crn; }
 
 bool Section::operator==(const Section& rhs) { return this->s_id == rhs.s_id && this->course->get_course_id() == rhs.course->get_course_id();}
+
+std::ostream& operator<<(std::ostream &out, const Section& rhs) {
+    out << rhs.get_section_id();
+    return out;
+}

@@ -7,6 +7,8 @@
 #include "Course.h"
 #include "Section.h"
 
+//using namespace school_types;
+
 // Forward Declarations
 class Course;
 
@@ -57,6 +59,8 @@ class Student : public Person {
         void add_advisor(id_t);
         void remove_advisor(id_t);
         void set_advisor(std::vector<id_t>);
+
+        void print_registration_info(void);
     
 };
 

@@ -21,6 +21,7 @@ void Student::calculate_gpa() {
     for (auto g: all_classes) {
         GPA += g.second.second;
     }
+    GPA /= all_classes.size();
 }
 
 void Student::calculate_credits() {
@@ -93,3 +94,25 @@ void Student::add_advisor(id_t a) { advisor.push_back(a); }
 void Student::remove_advisor(id_t a) { advisor.erase(std::find(advisor.begin(), advisor.end(), a)); }
 
 void Student::set_advisor(std::vector<id_t> a) { advisor = a; }
+
+void Student::print_registration_info() {
+    std::cout << "Name: " << first_name << " " << middle_i << " " << last_name << std::endl;
+    std::cout << "Majors: ";
+    for (auto m: major) {
+        std::cout << m;
+        if (m != *major.end()--)
+            std::cout << ", ";
+        else
+            std::cout << std::endl;
+    }
+    std::cout << "Minors: ";
+    for (auto m: minor) {
+        std::cout << m;
+        if (m != *minor.end()--)
+            std::cout << ", ";
+        else
+            std::cout << std::endl;
+    }
+    std::cout << "credits: " << get_credits() << std::endl;
+    std::cout << "GPA: " << get_gpa() << std::endl;
+}

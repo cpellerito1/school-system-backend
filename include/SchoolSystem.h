@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef SCHOOL_SYSTEM_H
 #define SCHOOL_SYSTEM_H
 
@@ -14,12 +12,13 @@
 
 #include "Registrar.h"
 
-typedef int course_id_t;
-typedef int section_id_t;
+namespace SchoolSystem {
+    void login(void);
+}
 
-class SchoolSystem {
-    public:
-        void login(void);
-};
+// class SchoolSystem {
+//     public:
+//         void login(void);
+// };
 
 #endif // School_System_H

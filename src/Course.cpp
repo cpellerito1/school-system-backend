@@ -52,8 +52,8 @@ void Course::set_sections(std::vector<Section*> new_sections) { sections = new_s
 
 bool Course::operator==(const Course& rhs) const { return this->course_id == rhs.course_id; }
 
-std::ostream& operator<<(std::ostream& out, const Course& c) {
-    out << c.name << c.department;
+std::ostream& operator<<(std::ostream& out, const Course& rhs) {
+    out << rhs.department << rhs.course_id << " - " << rhs.name << "\n" << rhs.description;
     return out;
 }
 

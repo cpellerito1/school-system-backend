@@ -53,7 +53,7 @@ class Registrar {
         void remove_crn_section(int);
         void set_crn_section(std::unordered_map<int, Section*>);
         void start_registration(Student&);
-        bool find_student(Student&);
+        std::vector<Student*>::const_iterator find_student(Student&);
 
 };
 
