@@ -12,11 +12,11 @@ id_t get_valid_input() {
     return input;
 }
 
-namespace SchoolSystem {
+
 /**
  * This is the entry point for the program
 */
-void login() {
+void SchoolSystem::login() {
     // Initialize registrar
     Registrar *r;
     r->initialize();
@@ -72,5 +72,4 @@ void login() {
                 break;
         }
     }
-}
 }

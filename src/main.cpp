@@ -2,8 +2,8 @@
 
 int main() {
     // Instantiate the school system class
-    //SchoolSystem sys;
-    SchoolSystem::login();
+    SchoolSystem sys;
+    sys.login();
 
 
     return 0;

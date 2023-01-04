@@ -12,13 +12,9 @@
 
 #include "Registrar.h"
 
-namespace SchoolSystem {
-    void login(void);
-}
-
-// class SchoolSystem {
-//     public:
-//         void login(void);
-// };
+class SchoolSystem {
+    public:
+        void login(void);
+};
 
 #endif // School_System_H
